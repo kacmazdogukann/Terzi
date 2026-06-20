@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terzi Dükkanı Yönetim Sistemi</title>
+    <title>Kaçmaz Terzisi - Yönetim Sistemi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,142 +15,157 @@
 </head>
 <body class="text-gray-800">
 
-    <nav class="bg-slate-800 text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="text-xl font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-scissors"></i> Modern Terzi
+    <div class="flex flex-col md:flex-row min-h-screen">
+        
+        <aside class="w-full md:w-64 bg-slate-800 text-white shadow-xl flex flex-col shrink-0">
+            <div class="p-6 border-b border-slate-700 text-center">
+                <div class="text-xl font-bold tracking-wider flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-scissors text-blue-400"></i> KAÇMAZ TERZİSİ
                 </div>
-                <div class="flex space-x-1 sm:space-x-4 overflow-x-auto">
-                    <button onclick="switchTab('dashboard')" class="px-3 py-2 rounded hover:bg-slate-700 bg-slate-700 transition" id="btn-dashboard"><i class="fa-solid fa-house"></i> Ana Ekran</button>
-                    <button onclick="switchTab('new-order')" class="px-3 py-2 rounded hover:bg-slate-700 transition" id="btn-new-order"><i class="fa-solid fa-plus"></i> Yeni İş</button>
-                    <button onclick="switchTab('expenses')" class="px-3 py-2 rounded hover:bg-slate-700 transition" id="btn-expenses"><i class="fa-solid fa-wallet"></i> Giderler</button>
-                    <button onclick="switchTab('reports')" class="px-3 py-2 rounded hover:bg-slate-700 transition" id="btn-reports"><i class="fa-solid fa-chart-pie"></i> Raporlar</button>
-                </div>
+                <p class="text-xs text-slate-400 mt-1">Yönetim ve Takip Paneli</p>
             </div>
-        </div>
-    </nav>
+            
+            <div class="flex flex-col p-4 space-y-3 flex-grow">
+                <button onclick="switchTab('dashboard')" id="btn-dashboard" class="w-full text-left px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 transition shadow-sm font-medium flex items-center gap-3">
+                    <i class="fa-solid fa-house text-blue-400 w-5 text-center"></i> Ana Ekran
+                </button>
+                <button onclick="switchTab('new-order')" id="btn-new-order" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-700 transition font-medium flex items-center gap-3">
+                    <i class="fa-solid fa-plus text-green-400 w-5 text-center"></i> Yeni İş Ekle
+                </button>
+                <button onclick="switchTab('expenses')" id="btn-expenses" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-700 transition font-medium flex items-center gap-3">
+                    <i class="fa-solid fa-wallet text-red-400 w-5 text-center"></i> Giderler
+                </button>
+                <button onclick="switchTab('reports')" id="btn-reports" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-700 transition font-medium flex items-center gap-3">
+                    <i class="fa-solid fa-chart-pie text-purple-400 w-5 text-center"></i> Raporlar
+                </button>
+            </div>
+            
+            <div class="p-4 border-t border-slate-700 text-center text-xs text-slate-500">
+                Hayatın Tadilatı...
+            </div>
+        </aside>
 
-    <div class="max-w-7xl mx-auto px-4 py-8">
+        <main class="flex-1 p-6 md:p-10 overflow-y-auto">
 
-        <div id="dashboard" class="tab-content active">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
-                    <h3 class="text-gray-500 text-sm font-semibold uppercase">Bu Ayki Gelir</h3>
-                    <p class="text-3xl font-bold text-gray-800 mt-2" id="summary-income">0 ₺</p>
+            <div id="dashboard" class="tab-content active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
+                        <h3 class="text-gray-500 text-sm font-semibold uppercase">Bu Ayki Gelir</h3>
+                        <p class="text-3xl font-bold text-gray-800 mt-2" id="summary-income">0 ₺</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-red-500">
+                        <h3 class="text-gray-500 text-sm font-semibold uppercase">Bu Ayki Gider</h3>
+                        <p class="text-3xl font-bold text-gray-800 mt-2" id="summary-expense">0 ₺</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
+                        <h3 class="text-gray-500 text-sm font-semibold uppercase">Net Durum</h3>
+                        <p class="text-3xl font-bold text-gray-800 mt-2" id="summary-net">0 ₺</p>
+                    </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-red-500">
-                    <h3 class="text-gray-500 text-sm font-semibold uppercase">Bu Ayki Gider</h3>
-                    <p class="text-3xl font-bold text-gray-800 mt-2" id="summary-expense">0 ₺</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
-                    <h3 class="text-gray-500 text-sm font-semibold uppercase">Net Durum</h3>
-                    <p class="text-3xl font-bold text-gray-800 mt-2" id="summary-net">0 ₺</p>
-                </div>
+
+                <h2 class="text-2xl font-bold mb-4 border-b pb-2"><i class="fa-solid fa-clock text-blue-500"></i> Bekleyen İşler</h2>
+                <div id="order-list" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                    </div>
             </div>
 
-            <h2 class="text-2xl font-bold mb-4 border-b pb-2"><i class="fa-solid fa-clock text-blue-500"></i> Bekleyen İşler</h2>
-            <div id="order-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                </div>
-        </div>
-
-        <div id="new-order" class="tab-content">
-            <div class="bg-white rounded-xl shadow-sm p-8 max-w-2xl mx-auto">
-                <h2 class="text-2xl font-bold mb-6 border-b pb-2">Yeni Müşteri & İş Kaydı</h2>
-                <form id="orderForm" onsubmit="saveOrder(event)">
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-semibold mb-2">Müşteri Adı / Telefon</label>
-                        <input type="text" id="customerName" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Örn: Ahmet Yılmaz - 555...">
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-semibold mb-2">Ürün Türü</label>
-                        <select id="productType" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
-                            <option value="">Seçiniz...</option>
-                            <option value="Pantolon / Kot">Pantolon / Kot</option>
-                            <option value="Gömlek">Gömlek</option>
-                            <option value="Ceket / Takım">Ceket / Takım</option>
-                            <option value="Pardesü / Kaban">Pardesü / Kaban</option>
-                            <option value="Elbise / Etek">Elbise / Etek</option>
-                            <option value="Kumaş (Özel Dikim)">Kumaş (Özel Dikim)</option>
-                            <option value="Diğer">Diğer</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-semibold mb-2">Yapılacak İşlemler (Birden fazla seçilebilir)</label>
-                        <div class="grid grid-cols-2 gap-3 text-lg" id="alterations">
-                            <label class="flex items-center space-x-2"><input type="checkbox" value="Paça Kısaltma" class="w-5 h-5 text-blue-600"> <span>Paça Kısaltma</span></label>
-                            <label class="flex items-center space-x-2"><input type="checkbox" value="Daraltma" class="w-5 h-5 text-blue-600"> <span>Daraltma</span></label>
-                            <label class="flex items-center space-x-2"><input type="checkbox" value="Fermuar Değişimi" class="w-5 h-5 text-blue-600"> <span>Fermuar Değişimi</span></label>
-                            <label class="flex items-center space-x-2"><input type="checkbox" value="Astar Değişimi" class="w-5 h-5 text-blue-600"> <span>Astar Değişimi</span></label>
-                            <label class="flex items-center space-x-2"><input type="checkbox" value="Düğme Dikimi" class="w-5 h-5 text-blue-600"> <span>Düğme Dikimi</span></label>
-                            <label class="flex items-center space-x-2"><input type="checkbox" value="Yırtık Onarımı" class="w-5 h-5 text-blue-600"> <span>Yırtık Onarımı</span></label>
-                            <label class="flex items-center space-x-2"><input type="checkbox" value="Özel Dikim" class="w-5 h-5 text-blue-600"> <span>Özel Dikim</span></label>
-                            <label class="flex items-center space-x-2"><input type="checkbox" value="Ütü" class="w-5 h-5 text-blue-600"> <span>Ütü</span></label>
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-semibold mb-2">Toplam Ücret (₺)</label>
-                        <input type="number" id="orderPrice" required min="0" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold text-2xl text-green-600" placeholder="0">
-                    </div>
-
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg text-xl transition shadow-lg">
-                        <i class="fa-solid fa-check"></i> Kaydı Oluştur
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div id="expenses" class="tab-content">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h2 class="text-xl font-bold mb-4 border-b pb-2">Yeni Gider Ekle</h2>
-                    <form id="expenseForm" onsubmit="saveExpense(event)">
+            <div id="new-order" class="tab-content">
+                <div class="bg-white rounded-xl shadow-sm p-8 max-w-2xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-2">Yeni Müşteri & İş Kaydı</h2>
+                    <form id="orderForm" onsubmit="saveOrder(event)">
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-semibold mb-2">Gider Açıklaması</label>
-                            <input type="text" id="expenseName" required class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500" placeholder="Kira, Elektrik, İp, İğne, Çay vb.">
+                            <label class="block text-gray-700 font-semibold mb-2">Müşteri Adı / Telefon</label>
+                            <input type="text" id="customerName" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Örn: Ahmet Yılmaz - 555...">
                         </div>
+                        
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-semibold mb-2">Tutar (₺)</label>
-                            <input type="number" id="expensePrice" required min="0" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 font-bold text-red-600">
+                            <label class="block text-gray-700 font-semibold mb-2">Ürün Türü</label>
+                            <select id="productType" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
+                                <option value="">Seçiniz...</option>
+                                <option value="Pantolon / Kot">Pantolon / Kot</option>
+                                <option value="Gömlek">Gömlek</option>
+                                <option value="Ceket / Takım">Ceket / Takım</option>
+                                <option value="Pardesü / Kaban">Pardesü / Kaban</option>
+                                <option value="Elbise / Etek">Elbise / Etek</option>
+                                <option value="Kumaş (Özel Dikim)">Kumaş (Özel Dikim)</option>
+                                <option value="Diğer">Diğer</option>
+                            </select>
                         </div>
-                        <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-lg transition">
-                            Gideri Kaydet
+
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2">Yapılacak İşlemler (Birden fazla seçilebilir)</label>
+                            <div class="grid grid-cols-2 gap-3 text-lg" id="alterations">
+                                <label class="flex items-center space-x-2"><input type="checkbox" value="Paça Kısaltma" class="w-5 h-5 text-blue-600"> <span>Paça Kısaltma</span></label>
+                                <label class="flex items-center space-x-2"><input type="checkbox" value="Daraltma" class="w-5 h-5 text-blue-600"> <span>Daraltma</span></label>
+                                <label class="flex items-center space-x-2"><input type="checkbox" value="Fermuar Değişimi" class="w-5 h-5 text-blue-600"> <span>Fermuar Değişimi</span></label>
+                                <label class="flex items-center space-x-2"><input type="checkbox" value="Astar Değişimi" class="w-5 h-5 text-blue-600"> <span>Astar Değişimi</span></label>
+                                <label class="flex items-center space-x-2"><input type="checkbox" value="Düğme Dikimi" class="w-5 h-5 text-blue-600"> <span>Düğme Dikimi</span></label>
+                                <label class="flex items-center space-x-2"><input type="checkbox" value="Yırtık Onarımı" class="w-5 h-5 text-blue-600"> <span>Yırtık Onarımı</span></label>
+                                <label class="flex items-center space-x-2"><input type="checkbox" value="Özel Dikim" class="w-5 h-5 text-blue-600"> <span>Özel Dikim</span></label>
+                                <label class="flex items-center space-x-2"><input type="checkbox" value="Ütü" class="w-5 h-5 text-blue-600"> <span>Ütü</span></label>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2">Toplam Ücret (₺)</label>
+                            <input type="number" id="orderPrice" required min="0" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold text-2xl text-green-600" placeholder="0">
+                        </div>
+
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg text-xl transition shadow-lg">
+                            <i class="fa-solid fa-check"></i> Kaydı Oluştur
                         </button>
                     </form>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h2 class="text-xl font-bold mb-4 border-b pb-2">Son Eklenen Giderler</h2>
-                    <ul id="expense-list" class="divide-y divide-gray-200">
-                        </ul>
+            </div>
+
+            <div id="expenses" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h2 class="text-xl font-bold mb-4 border-b pb-2">Yeni Gider Ekle</h2>
+                        <form id="expenseForm" onsubmit="saveExpense(event)">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 font-semibold mb-2">Gider Açıklaması</label>
+                                <input type="text" id="expenseName" required class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500" placeholder="Kira, Elektrik, İp, İğne, Çay vb.">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 font-semibold mb-2">Tutar (₺)</label>
+                                <input type="number" id="expensePrice" required min="0" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 font-bold text-red-600">
+                            </div>
+                            <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-lg transition">
+                                Gideri Kaydet
+                            </button>
+                        </form>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h2 class="text-xl font-bold mb-4 border-b pb-2">Son Eklenen Giderler</h2>
+                        <ul id="expense-list" class="divide-y divide-gray-200">
+                            </ul>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="reports" class="tab-content">
-            <div class="bg-white rounded-xl shadow-sm p-8">
-                <h2 class="text-2xl font-bold mb-6 border-b pb-2">Dönemsel Finansal Raporlar</h2>
-                
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-100 text-gray-700">
-                                <th class="p-4 rounded-tl-lg">Dönem</th>
-                                <th class="p-4 text-green-600">Kazanılan (İşi Biten) Gelir</th>
-                                <th class="p-4 text-red-600">Toplam Gider</th>
-                                <th class="p-4 text-blue-600 rounded-tr-lg">Net Kazanç</th>
-                            </tr>
-                        </thead>
-                        <tbody id="reports-table">
-                            </tbody>
-                    </table>
+            <div id="reports" class="tab-content">
+                <div class="bg-white rounded-xl shadow-sm p-8">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-2">Dönemsel Finansal Raporlar</h2>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-700">
+                                    <th class="p-4 rounded-tl-lg">Dönem</th>
+                                    <th class="p-4 text-green-600">Kazanılan Gelir</th>
+                                    <th class="p-4 text-red-600">Toplam Gider</th>
+                                    <th class="p-4 text-blue-600 rounded-tr-lg">Net Kazanç</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reports-table">
+                                </tbody>
+                        </table>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4"><i class="fa-solid fa-circle-info"></i> Raporlar, sistemde işaretlediğiniz "Tamamlandı" statüsündeki işlere ve eklediğiniz giderlere göre otomatik hesaplanır.</p>
                 </div>
-                <p class="text-sm text-gray-500 mt-4"><i class="fa-solid fa-circle-info"></i> Raporlar, sistemde işaretlediğiniz "Tamamlandı" statüsündeki işlere ve eklediğiniz giderlere göre otomatik hesaplanır.</p>
             </div>
-        </div>
 
+        </main>
     </div>
 
     <script>
@@ -161,7 +176,7 @@
         // Sekme Değiştirme Fonksiyonu
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('bg-slate-700'));
+            document.querySelectorAll('aside button').forEach(btn => btn.classList.remove('bg-slate-700', 'bg-slate-600'));
             
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('bg-slate-700');
@@ -178,7 +193,6 @@
             const product = document.getElementById('productType').value;
             const price = parseFloat(document.getElementById('orderPrice').value);
             
-            // Seçilen işlemleri topla
             const altCheckboxes = document.querySelectorAll('#alterations input:checked');
             let selectedAlts = [];
             altCheckboxes.forEach(cb => selectedAlts.push(cb.value));
@@ -190,7 +204,7 @@
                 alterations: selectedAlts,
                 price,
                 date: new Date().toISOString(),
-                status: 'bekliyor' // bekliyor veya tamamlandi
+                status: 'bekliyor'
             };
 
             orders.push(newOrder);
@@ -230,7 +244,7 @@
 
             e.target.reset();
             updateExpenseList();
-            updateDashboard(); // Anlık durumu güncelle
+            updateDashboard();
         }
 
         // Gider Silme
@@ -260,7 +274,7 @@
             const pendingOrders = orders.filter(o => o.status === 'bekliyor');
             
             if(pendingOrders.length === 0) {
-                list.innerHTML = `<div class="col-span-full text-center py-10 text-gray-500 text-xl"><i class="fa-solid fa-mug-hot mb-3 text-3xl"></i><br>Şu an bekleyen iş yok. Çayınızı yudumlayabilirsiniz!</div>`;
+                list.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 text-xl"><i class="fa-solid fa-mug-hot mb-3 text-3xl text-slate-400"></i><br>Şu an bekleyen iş yok. Çayınızı yudumlayabilirsiniz!</div>`;
             }
 
             pendingOrders.forEach(order => {
@@ -272,8 +286,8 @@
                                 <h3 class="font-bold text-xl text-gray-800">${order.product}</h3>
                                 <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded font-semibold">${date}</span>
                             </div>
-                            <p class="text-gray-600 mb-2"><i class="fa-solid fa-user text-sm w-5"></i> <b>${order.customer}</b></p>
-                            <p class="text-gray-600 mb-4"><i class="fa-solid fa-list-check text-sm w-5"></i> Yapılacaklar:<br> 
+                            <p class="text-gray-600 mb-2"><i class="fa-solid fa-user text-sm w-5 text-slate-400"></i> <b>${order.customer}</b></p>
+                            <p class="text-gray-600 mb-4"><i class="fa-solid fa-list-check text-sm w-5 text-slate-400"></i> Yapılacaklar:<br> 
                                 <span class="inline-block mt-1 bg-blue-50 text-blue-700 px-2 py-1 rounded text-sm">${order.alterations.join(', ') || 'Belirtilmedi'}</span>
                             </p>
                             <div class="text-2xl font-bold text-green-600 mb-4">${order.price} ₺</div>
@@ -313,9 +327,9 @@
             document.getElementById('summary-net').innerText = (monthlyIncome - monthlyExpense) + ' ₺';
             
             if((monthlyIncome - monthlyExpense) < 0) {
-                document.getElementById('summary-net').classList.replace('text-gray-800', 'text-red-600');
+                document.getElementById('summary-net').className = "text-3xl font-bold mt-2 text-red-600";
             } else {
-                document.getElementById('summary-net').classList.replace('text-red-600', 'text-gray-800');
+                document.getElementById('summary-net').className = "text-3xl font-bold mt-2 text-gray-800";
             }
         }
 
@@ -324,7 +338,6 @@
             const list = document.getElementById('expense-list');
             list.innerHTML = '';
             
-            // Sadece son 20 gideri göster
             const recentExpenses = [...expenses].reverse().slice(0, 20);
 
             recentExpenses.forEach(exp => {
@@ -365,7 +378,6 @@
                 let income = 0;
                 let expense = 0;
 
-                // Gelirleri hesapla (Sadece tamamlananlar)
                 orders.forEach(o => {
                     if(o.status === 'tamamlandi') {
                         const d = new Date(o.completedDate || o.date);
@@ -373,7 +385,6 @@
                     }
                 });
 
-                // Giderleri hesapla
                 expenses.forEach(e => {
                     const d = new Date(e.date);
                     if(d >= pastDate) expense += e.price;
@@ -393,7 +404,6 @@
             }
         }
 
-        // Sayfa yüklendiğinde Dashboard'u aç
         window.onload = () => {
             updateDashboard();
         };
